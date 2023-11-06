@@ -1,0 +1,221 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor de Español a Lenguaje de Señas Colombiano</title>
+</head>
+<body>
+    <header>
+        <h1>Traductor de Español a Lenguaje de Señas Colombiano</h1>
+        <p>Una página para traducir palabras o frases básicas en español a lenguaje de señas Colombiano.</p>
+    </header>
+
+    <!-- Agrega el formulario dentro del cuerpo de la página -->
+    <form>
+        <label for="fraseInput">¿Qué quieres decir?:</label>
+        <input type="text" id="fraseInput" required>
+        <button type="submit">Traducir</button>
+    </form>
+
+    <!-- Agrega el elemento de video con el id "video" donde se mostrará el video de señas -->
+    <video id="video" controls></video>
+
+    <footer>
+        <p>Derechos de autor &copy; TuNombre 2023</p>
+    </footer>
+
+    <script>
+        const baseDeDatos = {
+            frases: [
+    {
+      "espanol": "hola",
+      "lenguaje_de_senas": "Videos/hola.mp4"
+    },
+    {
+      "espanol": "adios",
+      "lenguaje_de_senas": "Videos/adios.mp4"
+    },
+    {
+      "espanol": "no",
+      "lenguaje_de_senas": "Videos/no.mp4"
+    },
+    {
+      "espanol": "si",
+      "lenguaje_de_senas": "Videos/si.mp4"
+    },
+    {
+      "espanol": "ayuda",
+      "lenguaje_de_senas": "Videos/ayudar.mp4"
+    },
+    {
+      "espanol": "gracias",
+      "lenguaje_de_senas": "Videos/ayudar.mp4"
+    },
+    {
+      "espanol": "por favor",
+      "lenguaje_de_senas": "Videos/porfavor.mp4"
+    },
+    {
+      "espanol": "bien",
+      "lenguaje_de_senas": "Videos/bien.mp4"
+    },
+    {
+      "espanol": "mal",
+      "lenguaje_de_senas": "Videos/mal.mp4"
+    },
+    {
+      "espanol": "tu",
+      "lenguaje_de_senas": "Videos/tu.mp4"
+    },
+    {
+      "espanol": "yo",
+      "lenguaje_de_senas": "Videos/yo.mp4"
+    },
+    {
+      "espanol": "hambre",
+      "lenguaje_de_senas": "Videos/hambre.mp4"
+    },
+    {
+      "espanol": "el",
+      "lenguaje_de_senas": "Videos/el.mp4"
+    },
+    {
+      "espanol": "ella",
+      "lenguaje_de_senas": "Videos/ella.mp4"
+    },
+    {
+      "espanol": "nosotros",
+      "lenguaje_de_senas": "Videos/nosotros.mp4"
+    },
+    {
+      "espanol": "ellos",
+      "lenguaje_de_senas": "Videos/ellos.mp4"
+    },
+    {
+      "espanol": "como",
+      "lenguaje_de_senas": "Videos/como.mp4"
+    },
+    {
+      "espanol": "donde",
+      "lenguaje_de_senas": "Videos/donde.mp4"
+    },
+    {
+      "espanol": "tengo",
+      "lenguaje_de_senas": "Videos/tener.mp4"
+    },
+    {
+      "espanol": "tienes",
+      "lenguaje_de_senas": "Videos/tener.mp4"
+    },
+    {
+      "espanol": "tienen",
+      "lenguaje_de_senas": "Videos/tener.mp4"
+    },
+    {
+      "espanol": "neceito",
+      "lenguaje_de_senas": "Videos/necesitar.mp4"
+    },
+    {
+      "espanol": "necesitas",
+      "lenguaje_de_senas": "Videos/necesitar.mp4"
+    },
+    {
+      "espanol": "necesitan",
+      "lenguaje_de_senas": "Videos/necesitar.mp4"
+    },
+    {
+      "espanol": "mi",
+      "lenguaje_de_senas": "Videos/mi.mp4"
+    },
+    {
+      "espanol": "nombre",
+      "lenguaje_de_senas": "Videos/nombre.mp4"
+    },
+    {
+      "espanol": "Juan",
+      "lenguaje_de_senas": "Videos/juan.mp4"
+    },
+    {
+      "espanol": "que",
+      "lenguaje_de_senas": "Videos/que.mp4"
+    },
+    {
+      "espanol": "gustan",
+      "lenguaje_de_senas": "Videos/gustar.mp4"
+    },
+    {
+      "espanol": "gusta",
+      "lenguaje_de_senas": "Videos/gustar.mp4"
+    },
+    {
+      "espanol": "comida",
+      "lenguaje_de_senas": "Videos/comer.mp4"
+    },
+    {
+      "espanol": "quiero",
+      "lenguaje_de_senas": "Videos/querer.mp4"
+    },
+    {
+      "espanol": "quieres",
+      "lenguaje_de_senas": "Videos/querer.mp4"
+    },
+    {
+      "espanol": "queremos",
+      "lenguaje_de_senas": "Videos/querer.mp4"
+    },
+    {
+      "espanol": "puedo",
+      "lenguaje_de_senas": "Videos/poder.mp4"
+    },
+    {
+      "espanol": "pueden",
+      "lenguaje_de_senas": "Videos/poder.mp4"
+    },
+    {
+      "espanol": "podemos",
+      "lenguaje_de_senas": "Videos/poder.mp4"
+    },
+    {
+      "espanol": "ir",
+      "lenguaje_de_senas": "Videos/ir.mp4"
+    },
+    {
+      "espanol": "baño",
+      "lenguaje_de_senas": "Videos/baño.mp4"
+    },
+    {
+      "espanol": "perdon",
+      "lenguaje_de_senas": "Videos/perdon.mp4"
+    },
+  ]
+        };
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const fraseInput = document.querySelector("#fraseInput").value;
+            const videoElement = document.querySelector("#video");
+
+            const videoURL = buscarURLDeVideo(fraseInput);
+
+            if (videoURL) {
+                // Mostrar el video correspondiente
+                videoElement.src = videoURL;
+                videoElement.load();
+                videoElement.play();
+            } else {
+                alert("No se encontró un video para la frase ingresada.");
+            }
+        });
+
+        function buscarURLDeVideo(frase) {
+            for (const item of baseDeDatos.frases) {
+                if (item.espanol.toLowerCase() === frase.toLowerCase()) {
+                    return item.lenguaje_de_senas;
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
